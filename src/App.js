@@ -13,7 +13,7 @@ function App() {
 
   return (
     <Main>
-      <Downshift>
+      <Downshift defaultHighlightedIndex={0}>
         {utils => {
           const results = spt.getResults(utils.inputValue)
           return (
