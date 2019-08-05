@@ -28,17 +28,21 @@ function App() {
                   <Hint input={inputRef} value={results[0]} />
                 ) : null}
               </InputContainer>
-              <ul {...utils.getMenuProps()}>
+              <Menu {...utils.getMenuProps()}>
                 {utils.isOpen
-                  ? results.map(result => (
-                      <li
-                        {...utils.getItemProps({ key: result, item: result })}
+                  ? results.map((result, index) => (
+                      <Item
+                        {...utils.getItemProps({
+                          key: result,
+                          item: result,
+                          isActive: index === utils.highlightedIndex
+                        })}
                       >
                         {result}
-                      </li>
+                      </Item>
                     ))
                   : null}
-              </ul>
+              </Menu>
             </SpotlightWrapper>
           )
         }}
@@ -105,4 +109,13 @@ const Input = styled.input`
   }
 
   z-index: 10;
+`
+
+const Menu = styled.ul`
+  list-style: none;
+`
+
+const Item = styled.li`
+  background: ${props => (props.isActive ? '#934791' : 'transparent')};
+  color: ${props => (props.isActive ? 'white' : 'inherit')};
 `
