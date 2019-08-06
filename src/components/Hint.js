@@ -15,7 +15,7 @@ function Hint({ input, inputValue, value }) {
       {isOverlaying && !isNumber ? null : <Span> {inputValue}</Span>}
       {value ? (
         <HintText isOverlaying={isOverlaying && !isNumber}>
-          {isNumber ? `= ${value}` : isOverlaying ? value : `- ${value}`}
+          {isNumber ? `= ${value}` : isOverlaying ? value : `— ${value}`}
         </HintText>
       ) : null}
     </Wrapper>
