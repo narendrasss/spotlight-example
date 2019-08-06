@@ -39,6 +39,6 @@ const Span = styled.span`
 `
 
 const HintText = styled.p`
-  font-size: ${props => (props.isOverlaying ? '1em' : '0.8em')};
+  font-size: ${props => (props.isOverlaying ? '1em' : '0.7em')};
   color: #bfbfbf;
 `
