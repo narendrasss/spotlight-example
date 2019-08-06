@@ -6,7 +6,7 @@ function shouldOverlay(value, inputValue) {
   return typeof value !== 'number' && value.startsWith(inputValue)
 }
 
-function Hint({ input, inputValue, value }) {
+function Hint({ inputValue, value }) {
   const isOverlaying = shouldOverlay(value, inputValue)
   const isNumber = typeof value === 'number'
 

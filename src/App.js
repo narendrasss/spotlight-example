@@ -4,13 +4,11 @@ import styled, { css } from 'styled-components'
 import Spotlight from '@narendras/spotlight'
 
 import Hint from './components/Hint'
+import Result from './components/Result'
 import icon from './icon.svg'
 
 function App() {
-  let inputRef = null
-
   const spt = new Spotlight(['orange', 'melon', 'watermelon'])
-
   return (
     <Main>
       <Downshift defaultHighlightedIndex={0}>
@@ -21,11 +19,9 @@ function App() {
               <InputContainer isActive={utils.isOpen && results.length}>
                 <InputIcon src={icon} alt="spotlight icon" />
                 <Input
-                  ref={el => (inputRef = el)}
                   {...utils.getInputProps({ placeholder: 'Spotlight Search' })}
                 />
                 <Hint
-                  input={inputRef}
                   inputValue={utils.inputValue}
                   value={
                     utils.isOpen && utils.inputValue.length
@@ -34,21 +30,26 @@ function App() {
                   }
                 />
               </InputContainer>
-              <Menu {...utils.getMenuProps()}>
-                {utils.isOpen
-                  ? results.map((result, index) => (
-                      <Item
-                        {...utils.getItemProps({
-                          key: result,
-                          item: result,
-                          isActive: index === utils.highlightedIndex
-                        })}
-                      >
-                        {result}
-                      </Item>
-                    ))
-                  : null}
-              </Menu>
+              <Results>
+                <Menu {...utils.getMenuProps()}>
+                  {utils.isOpen
+                    ? results.map((result, index) => (
+                        <Item
+                          {...utils.getItemProps({
+                            key: result,
+                            item: result,
+                            isActive: index === utils.highlightedIndex
+                          })}
+                        >
+                          {result}
+                        </Item>
+                      ))
+                    : null}
+                </Menu>
+                <StyledResult
+                  item={utils.isOpen && results[utils.highlightedIndex]}
+                />
+              </Results>
             </SpotlightWrapper>
           )
         }}
@@ -117,11 +118,27 @@ const Input = styled.input`
   z-index: 10;
 `
 
+const Results = styled.div`
+  display: flex;
+`
+
+const StyledResult = styled(Result)`
+  flex: 3;
+`
+
 const Menu = styled.ul`
   list-style: none;
+  flex: 2;
+  border-right: 1px solid #d9d9d9;
 `
 
 const Item = styled.li`
+  font-size: 16px;
+  padding: 6px 1em;
   background: ${props => (props.isActive ? '#934791' : 'transparent')};
   color: ${props => (props.isActive ? 'white' : 'inherit')};
+
+  &:last-child {
+    border-radius: 0 0 0 8px;
+  }
 `
