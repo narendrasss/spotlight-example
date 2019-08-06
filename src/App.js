@@ -24,9 +24,15 @@ function App() {
                   ref={el => (inputRef = el)}
                   {...utils.getInputProps({ placeholder: 'Spotlight Search' })}
                 />
-                {utils.isOpen && utils.inputValue.length ? (
-                  <Hint input={inputRef} value={results[0]} />
-                ) : null}
+                <Hint
+                  input={inputRef}
+                  inputValue={utils.inputValue}
+                  value={
+                    utils.isOpen && utils.inputValue.length
+                      ? results[utils.highlightedIndex]
+                      : ''
+                  }
+                />
               </InputContainer>
               <Menu {...utils.getMenuProps()}>
                 {utils.isOpen
