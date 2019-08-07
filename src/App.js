@@ -15,49 +15,47 @@ function App() {
         {utils => {
           const results = spt.getResults(utils.inputValue)
           return (
-            <>
-              <SpotlightWrapper {...utils.getRootProps()}>
-                <InputContainer isActive={utils.isOpen && results.length}>
-                  <InputIcon src={icon} alt="spotlight icon" />
-                  <Input
-                    {...utils.getInputProps({
-                      placeholder: 'Spotlight Search'
-                    })}
-                  />
-                  <Hint
+            <SpotlightWrapper {...utils.getRootProps()}>
+              <InputContainer isActive={utils.isOpen && results.length}>
+                <InputIcon src={icon} alt="spotlight icon" />
+                <Input
+                  {...utils.getInputProps({
+                    placeholder: 'Spotlight Search'
+                  })}
+                />
+                <Hint
+                  inputValue={utils.inputValue}
+                  value={
+                    utils.isOpen && utils.inputValue.length
+                      ? results[utils.highlightedIndex]
+                      : ''
+                  }
+                />
+              </InputContainer>
+              <Results>
+                <Menu {...utils.getMenuProps()}>
+                  {utils.isOpen
+                    ? results.map((result, index) => (
+                        <Item
+                          {...utils.getItemProps({
+                            key: result,
+                            item: result,
+                            isActive: index === utils.highlightedIndex
+                          })}
+                        >
+                          {result}
+                        </Item>
+                      ))
+                    : null}
+                </Menu>
+                {utils.isOpen && results.length ? (
+                  <StyledResult
                     inputValue={utils.inputValue}
-                    value={
-                      utils.isOpen && utils.inputValue.length
-                        ? results[utils.highlightedIndex]
-                        : ''
-                    }
+                    item={results[utils.highlightedIndex]}
                   />
-                </InputContainer>
-                <Results>
-                  <Menu {...utils.getMenuProps()}>
-                    {utils.isOpen
-                      ? results.map((result, index) => (
-                          <Item
-                            {...utils.getItemProps({
-                              key: result,
-                              item: result,
-                              isActive: index === utils.highlightedIndex
-                            })}
-                          >
-                            {result}
-                          </Item>
-                        ))
-                      : null}
-                  </Menu>
-                  {utils.isOpen && results.length ? (
-                    <StyledResult
-                      inputValue={utils.inputValue}
-                      item={results[utils.highlightedIndex]}
-                    />
-                  ) : null}
-                </Results>
-              </SpotlightWrapper>
-            </>
+                ) : null}
+              </Results>
+            </SpotlightWrapper>
           )
         }}
       </Downshift>
